@@ -1,0 +1,71 @@
+body{
+    margin: 0;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #345d85;
+    font-family: Arial,sans-serif;
+    display: flex;
+}
+.card{
+    width: 300px;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    background:linear-gradient(to bottom,#e0b973,#1e90ff);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+
+}
+.profile-img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid whitesmoke;
+    margin-top: 60px;
+}
+h1{
+    color: white;
+    font-size: 22px;
+    margin: 15px 0 5px;
+    font-family: serif;
+}
+p{
+    color: #eee;
+    margin-bottom: 15px;
+    font-family: sans-serif;
+    font-size: 22px;
+    font-weight: bolder;
+
+}
+.social-icons a{
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    
+    
+}
+img{
+    width: 75px;
+    height: 75px;
+    align-items: center;
+    justify-content: center;
+    
+
+    
+    
+
+}
+button{
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background: black;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+button:hover{
+    
+    background: #333;
+}
