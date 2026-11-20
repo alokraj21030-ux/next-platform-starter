@@ -1,215 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SweetsDelight- Online Sweets Store</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Header -->
-    <header>
-        <nav>
-            <a href="#" class="logo">🍭 SweetDelight</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Shop</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="cart-icon" onclick="toggleCart()">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count" id="cartCount">0</span>
-            </div>
-        </nav>
-    </header>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">✦</div>
+        <div><strong>Student</strong><span>Management System</span></div>
+      </div>
+      <nav class="nav">
+        <button class="nav-link active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+        <button class="nav-link" data-page="add"><span>＋</span> Add Student</button>
+        <button class="nav-link" data-page="students"><span>▤</span> View Students</button>
+        <button class="nav-link" data-page="search"><span>⌕</span> Search Student</button>
+        <button class="nav-link" data-page="export"><span>⇩</span> Export to CSV</button>
+      </nav>
+      <div class="sidebar-art">
+        <div class="cap">🎓</div>
+        <div class="books"><i></i><i></i><i></i></div>
+        <p>Learn <b>•</b> Grow <b>•</b> Succeed</p>
+      </div>
+      <div class="sidebar-foot"><span class="status-dot"></span> Student Portal <span class="version">v1.0</span></div>
+    </aside>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>🍬 SweetDelight</h1>
-            <p>Handcrafted sweets delivered to your doorstep</p>
-            <a href="#products" class="cta-button">Shop Now</a>
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">STUDENT ADMINISTRATION</p>
+          <h1>Welcome to <span>Student Management</span></h1>
+          <p class="subtitle">Manage your students easily and efficiently.</p>
         </div>
-    </section>
+        <div class="date-chip"><span>◷</span><div><strong id="today">Today</strong><small>Workspace</small></div></div>
+      </header>
 
-    <!-- Products Section -->
-    <section class="products" id="products">
-        <h2 class="section-title">Our Delicious Sweets</h2>
-        <div class="products-grid" id="productsGrid">
-            <!-- Products will be populated by JavaScript -->
+      <section class="stats">
+        <article class="stat-card blue"><div class="stat-icon">♙</div><div><p>Total Students</p><h2 id="totalCount">0</h2><small>All registered students</small></div><span class="stat-orb">↗</span></article>
+        <article class="stat-card green"><div class="stat-icon">▣</div><div><p>Courses</p><h2 id="courseCount">0</h2><small>Unique courses</small></div><span class="stat-orb">✦</span></article>
+        <article class="stat-card purple"><div class="stat-icon">◉</div><div><p>Average Marks</p><h2 id="averageMarks">0.0</h2><small>Across all students</small></div><span class="stat-orb">⌁</span></article>
+        <article class="stat-card orange"><div class="stat-icon">⇩</div><div><p>Data Export</p><h2>CSV</h2><small>Ready when you are</small></div><span class="stat-orb">↗</span></article>
+      </section>
+
+      <section class="content-card page active" id="page-dashboard">
+        <div class="section-heading">
+          <div><div class="heading-icon">▤</div><div><h2>Student Directory</h2><p>Browse and manage student records</p></div></div>
+          <button class="btn btn-primary" data-go="add">＋ Add Student</button>
         </div>
-    </section>
-
-    <!-- Cart Modal -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-content">
-            <span class="close-cart" onclick="toggleCart()">&times;</span>
-            <h2>🛒 Your Cart</h2>
-            <div id="cartItems"></div>
-            <div class="cart-total" id="cartTotal">$0.00</div>
-            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        <div class="toolbar">
+          <label class="search-box"><span>⌕</span><input id="dashboardSearch" placeholder="Search name, roll number, course..."></label>
+          <span class="result-count" id="resultCount">0 records</span>
         </div>
-    </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ROLL NO.</th><th>STUDENT</th><th>ADDRESS</th><th>EMAIL</th><th>PHONE</th><th>COURSE</th><th>MARKS</th><th>ACTIONS</th></tr></thead>
+            <tbody id="studentRows"></tbody>
+          </table>
+          <div class="empty-state" id="emptyState"><div>📚</div><h3>No students yet</h3><p>Add your first student to get started.</p><button class="btn btn-primary" data-go="add">＋ Add Student</button></div>
+        </div>
+        <div class="table-footer"><span id="showingText">Showing 0 records</span><span class="hint">Tip: click the pencil icon to edit a record.</span></div>
+      </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 SweetDelight. All rights reserved. Made with ❤️ for sweet lovers!</p>
-    </footer>
+      <section class="content-card page" id="page-add">
+        <div class="section-heading"><div><div class="heading-icon">＋</div><div><h2 id="formTitle">Add New Student</h2><p>Enter the student details below</p></div></div><span class="pill">STUDENT FORM</span></div>
+        <form id="studentForm">
+          <input type="hidden" id="originalRoll">
+          <div class="form-grid">
+            <label>Roll Number <span>*</span><input id="rollNo" type="number" min="1" placeholder="e.g. 101" required></label>
+            <label>Full Name <span>*</span><input id="name" type="text" maxlength="100" placeholder="Enter full name" required></label>
+            <label class="wide">Address <span>*</span><input id="address" type="text" maxlength="200" placeholder="Street, city, state" required></label>
+            <label>Email Address <span>*</span><input id="email" type="email" maxlength="150" placeholder="student@example.com" required></label>
+            <label>Phone Number <span>*</span><input id="phoneNo" type="tel" inputmode="numeric" pattern="[0-9+() -]{7,20}" maxlength="20" placeholder="Enter phone number" required></label>
+            <label>Course <span>*</span><input id="course" type="text" maxlength="80" placeholder="e.g. BCA" required></label>
+            <label>Marks (0–100) <span>*</span><input id="marks" type="number" min="0" max="100" step="0.01" placeholder="e.g. 85.5" required></label>
+          </div>
+          <div class="form-actions"><button class="btn btn-quiet" type="reset" id="resetBtn">Clear Form</button><button class="btn btn-primary" type="submit" id="submitBtn">Save Student <span>→</span></button></div>
+        </form>
+      </section>
 
-    <script>
-        // Product data
-        const products = [
-            { id: 1, name: 'Chocolate Truffles', price: 12.99, emoji: '🍫' },
-            { id: 2, name: 'Gummy Bears', price: 8.99, emoji: '🍬' },
-            { id: 3, name: 'Caramel Toffee', price: 10.50, emoji: '🍮' },
-            { id: 4, name: 'Lollipop assortment', price: 7.99, emoji: '🍭' },
-            { id: 5, name: 'Jelly Beans', price: 9.99, emoji: '🍬' },
-            { id: 6, name: 'Fudge Brownies', price: 14.99, emoji: '🍫' }
-        ];
+      <section class="content-card page" id="page-search">
+        <div class="section-heading"><div><div class="heading-icon">⌕</div><div><h2>Search Students</h2><p>Find records by roll number, name, email, or course</p></div></div></div>
+        <div class="search-panel"><label class="search-box big"><span>⌕</span><input id="searchInput" placeholder="Type a name, roll number, email, or course..."></label><button class="btn btn-primary" id="searchBtn">Search</button></div>
+        <div id="searchResults" class="search-results"><p class="muted">Enter a search term to find a student.</p></div>
+      </section>
 
-        let cart = [];
+      <section class="content-card page" id="page-export">
+        <div class="section-heading"><div><div class="heading-icon">⇩</div><div><h2>Export Student Data</h2><p>Download your records for Excel or spreadsheet apps</p></div></div></div>
+        <div class="export-panel"><div class="export-illustration">📄<span>CSV</span></div><div class="export-copy"><h3>Your student data, ready to go</h3><p>Export all student fields including roll number, name, address, email, phone number, course, and marks.</p><div class="export-meta"><span>✓ Comma-separated values</span><span>✓ Opens in Excel</span><span>✓ UTF-8 compatible</span></div><button class="btn btn-primary" id="exportBtn">⇩ Download students.csv</button></div></div>
+        <p class="muted export-note">Your file is generated in this browser. No data is uploaded to a server.</p>
+      </section>
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            renderProducts();
-            updateCartCount();
-        });
-
-        // Render products
-        function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = products.map(product => `
-                <div class="product-card">
-                    <div class="product-image">${product.emoji}</div>
-                    <div class="product-info">
-                        <h3 class="product-title">${product.name}</h3>
-                        <div class="product-price">$${product.price.toFixed(2)}</div>
-                        <button class="add-to-cart" onclick="addToCart(${product.id})">
-                            Add to Cart
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Add to cart
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const cartItem = cart.find(item => item.id === productId);
-            
-            if (cartItem) {
-                cartItem.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            
-            updateCartCount();
-            showNotification(`${product.name} added to cart!`);
-        }
-
-        // Update cart count
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').textContent = count;
-        }
-
-        // Toggle cart modal
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
-            if (modal.style.display === 'block') {
-                renderCart();
-            }
-        }
-
-        // Render cart
-        function renderCart() {
-            const cartItems = document.getElementById('cartItems');
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p>Your cart is empty 😢</p>';
-                document.getElementById('cartTotal').textContent = '$0.00';
-                return;
-            }
-            
-            cartItems.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div>
-                        <strong>${item.emoji} ${item.name}</strong><br>
-                        <small>$${item.price.toFixed(2)} x ${item.quantity}</small>
-                    </div>
-                    <div>
-                        <button onclick="removeFromCart(${item.id})" style="background: #ff4444; color: white; border: none; padding: 0.5rem; border-radius: 5px; cursor: pointer;">Remove</button>
-                    </div>
-                </div>
-            `).join('');
-            
-            document.getElementById('cartTotal').textContent = `Total: $${total.toFixed(2)}`;
-        }
-
-        // Remove from cart
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            renderCart();
-            updateCartCount();
-        }
-
-        // Checkout
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-                return;
-            }
-            alert('Thank you for your order! 🎉\n(This is a demo - no real payment processed)');
-            cart = [];
-            updateCartCount();
-            toggleCart();
-        }
-
-        // Notification
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: #4caf50;
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 10px;
-                z-index: 3000;
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-
-        // Close modal on outside click
-        window.onclick = function(event) {
-            const modal = document.getElementById('cartModal');
-            if (event.target === modal) {
-                toggleCart();
-            }
-        }
-
-        // Smooth scrolling for nav links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
-
+      <footer class="footer"><span>✦ Student Management System</span><span>Organized records. Smarter management.</span><span>Made with <b>♥</b></span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
 </body>
 </html>
